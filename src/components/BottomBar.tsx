@@ -10,19 +10,19 @@ import { IconType } from "react-icons";
 import React, { ReactNode } from "react";
 import { useRouter } from "next/router";
 
-type SidebarLinkProps = {
+type BottomBarLinkProps = {
   href: Url;
   icon?: IconType;
   active?: boolean;
   renderImage?: () => ReactNode;
 };
 
-function SidebarLink({
+function BottomBarLink({
   href,
   icon: Icon,
   active = false,
   renderImage,
-}: SidebarLinkProps) {
+}: BottomBarLinkProps) {
   return (
     <Link
       href={href}
@@ -43,27 +43,27 @@ export function BottomBar() {
   return (
     <div className="md:hidden fixed bottom-0 w-full bg-zinc-100 border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 px-4 py-2">
       <ul className="flex flex-row items-center justify-between gap-2">
-        <SidebarLink
+        <BottomBarLink
           href="/"
           icon={GoHomeFill}
           active={router.pathname === "/"}
         />
-        <SidebarLink
+        <BottomBarLink
           href="/search"
           icon={BiSearch}
           active={router.pathname === "/search"}
         />
-        <SidebarLink
+        <BottomBarLink
           href="/create"
           icon={TbSquareRoundedPlus}
           active={router.pathname === "/create"}
         />
-        <SidebarLink
+        <BottomBarLink
           href="/activities"
           icon={TbHeart}
           active={router.pathname === "/activities"}
         />
-        <SidebarLink
+        <BottomBarLink
           href="/profile"
           renderImage={() => (
             <Image
