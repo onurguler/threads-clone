@@ -7,10 +7,7 @@ import { useRouter } from "next/router";
 
 import { api } from "~/utils/api";
 
-import { Sidebar } from "~/components/Sidebar";
-
 import { Topbar } from "~/components/Topbar";
-import { BottomBar } from "~/components/BottomBar";
 
 import "~/styles/globals.css";
 
@@ -34,14 +31,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
         className={`flex min-h-screen flex-col items-start bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row`}
       >
         {!router.pathname.startsWith("/auth") ? (
-          <>
-            <Sidebar />
+          <main className="container mx-auto max-w-2xl">
             <Topbar />
             <div className="relative min-h-screen flex-grow px-6 pt-16">
               <Component {...pageProps} />
             </div>
-            <BottomBar />
-          </>
+          </main>
         ) : (
           <Component {...pageProps} />
         )}
