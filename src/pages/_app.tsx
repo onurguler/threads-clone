@@ -27,9 +27,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </Head>
 
       <div
-        className={`flex flex-col items-start bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row`}
+        className={`flex flex-col items-start bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row min-h-screen`}
       >
-        {/* {session?.user ? ( */}
+        {session?.user ? (
           <>
             <Sidebar />
             <Topbar />
@@ -38,9 +38,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
             </div>
             <BottomBar />
           </>
-        {/* ) : (
+        ) : (
           <Component {...pageProps} />
-        )} */}
+        )}
       </div>
     </SessionProvider>
   );
