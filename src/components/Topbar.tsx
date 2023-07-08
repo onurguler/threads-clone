@@ -28,7 +28,7 @@ function SidebarLink({
   text,
   renderImage,
   onClick,
-  iconClassName = ""
+  iconClassName = "",
 }: SidebarLinkProps) {
   return (
     <Link
@@ -39,9 +39,9 @@ function SidebarLink({
         active
           ? "text-zinc-900 dark:text-zinc-100"
           : "text-zinc-500 dark:text-zinc-600"
-      } w-full rounded-md px-4 py-2 font-medium transition-all duration-150 ease-in hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100`}
+      } rounded-md px-4 py-2 font-medium transition-all duration-150 ease-in hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100`}
     >
-      {Icon && <Icon size={24} className={iconClassName} /> }
+      {Icon && <Icon size={24} className={iconClassName} />}
       {!Icon && renderImage && renderImage()}
     </Link>
   );
@@ -57,10 +57,10 @@ export function Topbar() {
   };
 
   return (
-    <div className="sticky top-0 flex flex-col w-full items-center md:items-start justify-center md:justify-between gap-2 bg-zinc-100 px-4 py-2 text-center font-mono dark:border-zinc-800 dark:bg-zinc-950 md:flex-row">
+    <div className="sticky top-0 flex w-full flex-col items-center justify-center gap-2 bg-zinc-100 px-4 py-2 text-center font-mono dark:border-zinc-800 dark:bg-zinc-950 md:flex-row md:items-start md:justify-between">
       <span className="font-mono text-4xl font-medium leading-none">@</span>
 
-      <ul className="flex items-center gap-2">
+      <ul className="flex w-full items-center justify-around gap-2 md:justify-end">
         <SidebarLink
           href="/"
           icon={GoHomeFill}
@@ -98,7 +98,12 @@ export function Topbar() {
           )}
           text="Profile"
         />
-        <SidebarLink iconClassName="text-red-500" icon={TbLogout} text="Sign Out" onClick={handleSignOut} />
+        <SidebarLink
+          iconClassName="text-red-500"
+          icon={TbLogout}
+          text="Sign Out"
+          onClick={handleSignOut}
+        />
       </ul>
     </div>
   );
