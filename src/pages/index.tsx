@@ -1,3 +1,4 @@
+import { NewThreadForm } from "~/components/NewThreadForm";
 import { requireAuth } from "~/utils/requireAuth";
 
 export const getServerSideProps = requireAuth(async (_) => {
@@ -5,5 +6,5 @@ export const getServerSideProps = requireAuth(async (_) => {
 });
 
 export default function Home() {
-  return <h1>Hello World!</h1>;
+  return <NewThreadForm />;
 }
