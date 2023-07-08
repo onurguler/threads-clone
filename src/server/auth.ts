@@ -1,13 +1,16 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { verify } from "argon2";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
+import { signinSchema } from "~/utils/validations/auth";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -37,13 +40,24 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token }) => ({
       ...session,
       user: {
-        ...session.user,
-        id: user.id,
+        email: token.email,
+        name: token.name,
+        id: token.sub,
       },
     }),
+
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.email = user.email;
+        token.name = user.name;
+        token.sub = user.id;
+      }
+
+      return token;
+    },
   },
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -60,11 +74,55 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
+    Credentials({
+      name: "credentials",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "Username" },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "Password",
+        },
+      },
+      authorize: async (credentials, request) => {
+        const { username, password } = await signinSchema.parseAsync(
+          credentials
+        );
+
+        const user = await prisma.user.findFirst({
+          where: { username },
+        });
+
+        if (!user) {
+          return null;
+        }
+
+        const isValidPassword = await verify(user.passwordHash!, password);
+
+        if (!isValidPassword) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          username: user.username,
+        };
+      },
+    }),
   ],
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth/sign-in",
     newUser: "/auth/sign-up",
-  }
+  },
+  jwt: {
+    secret: "super-secret",
+    maxAge: 15 * 24 * 30 * 60, // 15 days
+  },
+  session: {
+    strategy: "jwt",
+  },
 };
 
 /**

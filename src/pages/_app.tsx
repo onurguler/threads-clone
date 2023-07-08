@@ -2,19 +2,23 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 
+import Head from "next/head";
+import { useRouter } from "next/router";
+
 import { api } from "~/utils/api";
 
 import { Sidebar } from "~/components/Sidebar";
 
-import "~/styles/globals.css";
 import { Topbar } from "~/components/Topbar";
 import { BottomBar } from "~/components/BottomBar";
-import Head from "next/head";
+
+import "~/styles/globals.css";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const router = useRouter();
   return (
     <SessionProvider session={session}>
       <Head>
@@ -27,9 +31,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </Head>
 
       <div
-        className={`flex flex-col items-start bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row min-h-screen`}
+        className={`flex min-h-screen flex-col items-start bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row`}
       >
-        {session?.user ? (
+        {!router.pathname.startsWith("/auth") ? (
           <>
             <Sidebar />
             <Topbar />
