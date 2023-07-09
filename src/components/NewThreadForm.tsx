@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { TbSend } from "react-icons/tb";
 import { api } from "~/utils/api";
@@ -32,6 +32,13 @@ export function NewThreadForm() {
   const { ref, ...textAreaRegister } = register("bodyText");
 
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const textAreaRefCallback = useCallback(
+    (textArea: HTMLTextAreaElement | null) => {
+      updateTextAreaSize(textArea);
+      textAreaRef.current = textArea;
+    },
+    []
+  );
 
   const bodyTextWatch = watch("bodyText");
 
@@ -60,7 +67,7 @@ export function NewThreadForm() {
         <textarea
           ref={(e) => {
             ref(e);
-            textAreaRef.current = e;
+            textAreaRefCallback(e);
           }}
           className="w-full resize-none overflow-hidden rounded-lg border border-zinc-600 bg-zinc-800 px-4 py-2 outline-none placeholder:text-lg"
           placeholder="Start a new thread..."
