@@ -69,7 +69,7 @@ export function NewThreadForm() {
             ref(e);
             textAreaRefCallback(e);
           }}
-          className="w-full resize-none overflow-hidden rounded-lg border border-zinc-600 bg-zinc-800 px-4 py-2 outline-none placeholder:text-lg"
+          className="w-full resize-none overflow-hidden rounded-lg border border-zinc-300 dark:border-zinc-600 bg-zinc-200 dark:bg-zinc-800 px-4 py-2 outline-none placeholder:text-lg"
           placeholder="Start a new thread..."
           maxLength={MAX_LENGTH}
           style={{ minHeight: "6rem" }}
@@ -93,7 +93,7 @@ export function NewThreadForm() {
         </p>
         <button className="flex items-center gap-2 rounded-full bg-blue-600 px-6 py-2 font-medium text-zinc-100 hover:bg-blue-700">
           <TbSend />
-          Send
+          Share
         </button>
       </div>
     </form>
