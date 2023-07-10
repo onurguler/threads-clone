@@ -1,6 +1,12 @@
-# Create T3 App
+# Threads Clone
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+
+## Screenshots
+
+![Sign in page](https://github.com/onurguler/threads-clone/blob/main/screenshots/sign-in.jpg?raw=true)
+![Sign up page](https://github.com/onurguler/threads-clone/blob/main/screenshots/sign-up.png?raw=true)
+![Profile page](https://github.com/onurguler/threads-clone/blob/main/screenshots/profile.png?raw=true)
 
 ## What's next? How do I make an app with this?
 
