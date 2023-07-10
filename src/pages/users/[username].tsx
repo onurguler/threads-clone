@@ -83,7 +83,7 @@ const ProfilePage: NextPage<
                 <p className="my-32 text-zinc-400">Loading...</p>
               </div>
             ) : (
-              <div className="-mx-6 flex flex-col divide-y divide-zinc-600">
+              <div className="-mx-6 flex flex-col divide-y dark:divide-zinc-600">
                 {threadsQuery.data?.result.map((thread) => (
                   <div className="p-4">
                     <div className="flex gap-4">
