@@ -6,11 +6,26 @@ import {
 import { ssgHelper } from "~/server/api/ssgHelper";
 import Image from "next/image";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
-import { AiOutlineInstagram } from "react-icons/ai";
+import { AiOutlineInstagram, AiOutlineHeart } from "react-icons/ai";
+import { api } from "~/utils/api";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import { BsThreeDots, BsChat } from "react-icons/bs";
+import { RiArrowLeftRightLine } from "react-icons/ri";
+import { TbSend } from "react-icons/tb";
+
+TimeAgo.addDefaultLocale(en);
+
+const timeAgo = new TimeAgo("en-US");
 
 const ProfilePage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ profile }) => {
+  const threadsQuery = api.threads.getUserThreads.useQuery(
+    { username: profile.username! },
+    { enabled: !profile.isPrivate }
+  );
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-col gap-4">
@@ -53,13 +68,69 @@ const ProfilePage: NextPage<
             <p className="my-32 text-zinc-400">This account is private.</p>
           </div>
         ) : (
-          <div className="-mx-6 grid grid-cols-2">
-            <button className="w-full border-b border-zinc-900 px-4 py-2 text-sm font-medium dark:border-zinc-50">
-              Threads
-            </button>
-            <button className="w-full border-b px-4 py-2 text-sm font-medium text-zinc-400 dark:border-zinc-600  dark:text-zinc-600">
-              Replies
-            </button>
+          <div>
+            <div className="-mx-6 grid grid-cols-2">
+              <button className="w-full border-b border-zinc-900 px-4 py-2 text-sm font-medium dark:border-zinc-50">
+                Threads
+              </button>
+              <button className="w-full border-b px-4 py-2 text-sm font-medium text-zinc-400 dark:border-zinc-600  dark:text-zinc-600">
+                Replies
+              </button>
+            </div>
+
+            {threadsQuery.isLoading ? (
+              <div className="flex h-full flex-1 items-center justify-center">
+                <p className="my-32 text-zinc-400">Loading...</p>
+              </div>
+            ) : (
+              <div className="-mx-6 flex flex-col divide-y divide-zinc-600">
+                {threadsQuery.data?.result.map((thread) => (
+                  <div className="p-4">
+                    <div className="flex gap-4">
+                      <div className="flex flex-shrink-0 flex-col">
+                        <Image
+                          className="relative h-10 w-10 rounded-full object-cover"
+                          src={thread.author.avatar}
+                          width={40}
+                          height={40}
+                          alt={thread.author.name!}
+                        />
+                      </div>
+                      <div className="flex flex-grow flex-col gap-2">
+                        <div className="flex w-full justify-between">
+                          <span className="text-sm font-semibold">
+                            {thread.author.username}
+                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-zinc-600">
+                              {timeAgo.format(thread.createdAt, "mini")}
+                            </span>
+                            <button className="rounded-full p-2 hover:bg-zinc-800">
+                              <BsThreeDots />
+                            </button>
+                          </div>
+                        </div>
+                        <p className="-mt-2 font-light">{thread.bodyText}</p>
+                        <div className="flex items-center gap-2 text-xl">
+                          <button className="rounded-full p-1 hover:bg-zinc-800">
+                            <AiOutlineHeart />
+                          </button>
+                          <button className="rounded-full p-1 hover:bg-zinc-800">
+                            <BsChat />
+                          </button>
+                          <button className="rounded-full p-1 hover:bg-zinc-800">
+                            <RiArrowLeftRightLine />
+                          </button>
+                          <button className="rounded-full p-1 hover:bg-zinc-800">
+                            <TbSend />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </div>
