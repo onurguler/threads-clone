@@ -20,7 +20,13 @@ const config = {
   },
   images: {
     domains: ["images.unsplash.com"],
-  }
+  },
+  rewrites: async () => [
+    {
+      source: '/@:username',
+      destination: '/users/:username'
+    }
+  ]
 };
 
 export default config;

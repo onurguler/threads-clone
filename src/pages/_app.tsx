@@ -28,12 +28,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
       </Head>
 
       <div
-        className={`relative flex min-h-screen flex-col items-start bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row`}
+        className={`relative flex h-screen flex-col items-start bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 md:flex-row`}
       >
         {!router.pathname.startsWith("/auth") ? (
           <main className="container mx-auto max-w-2xl">
             <Topbar />
-            <div className="p-6">
+            <div className="flex h-full flex-col p-6">
               <Component {...pageProps} />
             </div>
           </main>

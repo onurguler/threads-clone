@@ -29,7 +29,7 @@ export default function SignUpPage() {
   );
 
   return (
-    <section className="grid h-screen w-full place-items-center bg-gradient-to-br from-zinc-100 to-slate-200 p-6 dark:from-zinc-950 dark:to-slate-950">
+    <section className="grid h-screen w-full place-items-center bg-gradient-to-br from-zinc-50 to-slate-200 p-6 dark:from-zinc-950 dark:to-slate-950">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto flex w-full max-w-sm flex-col space-y-4 backdrop-blur-3xl"
@@ -46,7 +46,7 @@ export default function SignUpPage() {
         <div className="flex flex-col space-y-4">
           <div className="flex flex-col gap-2">
             <input
-              className="w-full rounded-lg border border-zinc-300 bg-zinc-100 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
+              className="w-full rounded-lg border border-zinc-300 bg-zinc-50 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
               type="text"
               placeholder="What's your name?"
               {...register("name")}
@@ -61,7 +61,7 @@ export default function SignUpPage() {
 
           <div className="flex flex-col gap-2">
             <input
-              className="w-full rounded-lg border border-zinc-300 bg-zinc-100 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
+              className="w-full rounded-lg border border-zinc-300 bg-zinc-50 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
               type="text"
               placeholder="Please enter your email address"
               {...register("email")}
@@ -76,7 +76,7 @@ export default function SignUpPage() {
 
           <div className="flex flex-col gap-2">
             <input
-              className="w-full rounded-lg border border-zinc-300 bg-zinc-100 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
+              className="w-full rounded-lg border border-zinc-300 bg-zinc-50 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
               type="text"
               placeholder="Username"
               {...register("username")}
@@ -91,7 +91,7 @@ export default function SignUpPage() {
 
           <div className="flex flex-col gap-2">
             <input
-              className="w-full rounded-lg border border-zinc-300 bg-zinc-100 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
+              className="w-full rounded-lg border border-zinc-300 bg-zinc-50 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
               type="password"
               placeholder="Password"
               {...register("password")}
@@ -106,7 +106,7 @@ export default function SignUpPage() {
 
           <div className="flex flex-col gap-2">
             <input
-              className="w-full rounded-lg border border-zinc-300 bg-zinc-100 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
+              className="w-full rounded-lg border border-zinc-300 bg-zinc-50 px-4 py-2 outline-none dark:border-zinc-600 dark:bg-zinc-800"
               type="password"
               placeholder="Confirm Password"
               {...register("confirmPassword")}
@@ -121,7 +121,7 @@ export default function SignUpPage() {
 
           <button
             type="submit"
-            className="rounded-full bg-blue-600 px-4 py-2 font-medium text-zinc-100 hover:bg-blue-700 hover:dark:bg-blue-500"
+            className="rounded-full bg-blue-600 px-4 py-2 font-medium text-zinc-50 hover:bg-blue-700 hover:dark:bg-blue-500"
           >
             Sign Up
           </button>

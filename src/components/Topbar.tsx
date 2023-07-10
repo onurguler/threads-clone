@@ -37,9 +37,9 @@ function SidebarLink({
       href={href}
       className={`flex items-center gap-2 text-base ${
         active
-          ? "text-zinc-900 dark:text-zinc-100"
+          ? "text-zinc-900 dark:text-zinc-50"
           : "text-zinc-500 dark:text-zinc-600"
-      } rounded-md px-4 py-2 font-medium transition-all duration-150 ease-in hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100`}
+      } rounded-md px-4 py-2 font-medium transition-all duration-150 ease-in hover:bg-zinc-200 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50`}
     >
       {Icon && <Icon size={24} className={iconClassName} />}
       {!Icon && renderImage && renderImage()}
@@ -57,7 +57,7 @@ export function Topbar() {
   };
 
   return (
-    <div className="sticky top-0 flex w-full flex-col items-center justify-center gap-2 bg-zinc-100 px-4 py-2 text-center font-mono dark:border-zinc-800 dark:bg-zinc-950 md:flex-row md:items-start md:justify-between">
+    <div className="sticky top-0 flex w-full flex-col items-center justify-center gap-2 bg-zinc-50 px-4 py-2 text-center font-mono dark:border-zinc-800 dark:bg-zinc-950 md:flex-row md:items-start md:justify-between">
       <span className="font-mono text-4xl font-medium leading-none">@</span>
 
       <ul className="flex w-full items-center justify-around gap-2 md:justify-end">

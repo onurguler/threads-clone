@@ -91,7 +91,7 @@ export function NewThreadForm() {
         >
           {getValues("bodyText")?.length || 0}/{MAX_LENGTH}
         </p>
-        <button className="flex items-center gap-2 rounded-full bg-blue-600 px-6 py-2 font-medium text-zinc-100 hover:bg-blue-700">
+        <button className="flex items-center gap-2 rounded-full bg-blue-600 px-6 py-2 font-medium text-zinc-50 hover:bg-blue-700">
           <TbSend />
           Share
         </button>
