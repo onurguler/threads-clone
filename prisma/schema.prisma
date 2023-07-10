@@ -58,6 +58,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     threads       Thread[]
+    likes         Like[]
 }
 
 model VerificationToken {
@@ -75,6 +76,21 @@ model Thread {
     bodyText  String   @db.VarChar(280)
     author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
     authorId  String
+    likes     Like[]
 
     @@index([authorId])
+}
+
+model Like {
+    postId    String
+    userId    String
+    createdAt DateTime @default(now())
+
+    post Thread @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@id([postId, userId])
+    @@unique([postId, userId])
+    @@index([postId])
+    @@index([userId])
 }

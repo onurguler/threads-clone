@@ -89,4 +89,64 @@ export const threadsRouter = createTRPCRouter({
         })),
       };
     }),
+
+  like: protectedProcedure
+    .input(z.object({ threadId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const { threadId } = input;
+
+      const thread = await ctx.prisma.thread.findFirst({
+        where: {
+          id: threadId,
+        },
+      });
+
+      if (!thread) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Thread not found.",
+        });
+      }
+
+      const existingLike = await ctx.prisma.like.findFirst({
+        where: {
+          postId: threadId,
+          userId: ctx.session.user.id,
+        },
+      });
+
+      if (existingLike) {
+        await ctx.prisma.like.delete({
+          where: {
+            postId_userId: {
+              postId: threadId,
+              userId: ctx.session.user.id,
+            },
+          },
+        });
+
+        return {
+          status: 200,
+          message: "Like removed successfully.",
+          result: {
+            liked: false,
+          },
+        };
+      }
+
+      await ctx.prisma.like.create({
+        data: {
+          postId: threadId,
+          userId: ctx.session.user.id,
+        },
+      });
+
+      return {
+        status: 200,
+        message: "Like added successfully.",
+        result: {
+          liked: true,
+        },
+      };
+    }),
 });
